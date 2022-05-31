@@ -10,7 +10,6 @@ import repository.LikesRepository;
 import repository.PostRepository;
 import repository.UserRepository;
 import utils.algorithm.sorting.ISortAlgorithm;
-import utils.algorithm.sorting.MergeSort;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,15 +20,20 @@ public class PostServiceImpl {
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
     private final LikesRepository likesRepository;
-    private final ISortAlgorithm sortAlgorithm;
+    private ISortAlgorithm sortAlgorithm;
 
     public PostServiceImpl(PostRepository postRepository, UserRepository userRepository,
-                           FollowRepository followRepository, LikesRepository likesRepository) {
+                           FollowRepository followRepository, LikesRepository likesRepository,
+                           ISortAlgorithm sortAlgorithm) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.followRepository = followRepository;
         this.likesRepository = likesRepository;
-        this.sortAlgorithm = new MergeSort();
+        this.sortAlgorithm = sortAlgorithm;
+    }
+
+    public void setSortAlgorithm(ISortAlgorithm sortAlgorithm) {
+        this.sortAlgorithm = sortAlgorithm;
     }
 
     public List<PostDetail> getPosts(long userId, List<Long> postIds) {
